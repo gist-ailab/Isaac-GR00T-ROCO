@@ -38,7 +38,7 @@ class FinetuneConfig:
     tune_visual: bool = False
     """If True, fine-tune the visual encoder (e.g., ViT or CNN backbone)."""
 
-    tune_projector: bool = True
+    tune_projector: bool = False
     """If True, fine-tune the multimodal projector layers that map vision/language features to a shared space."""
 
     tune_diffusion_model: bool = True
@@ -83,7 +83,7 @@ class FinetuneConfig:
     output_dir: str = "./outputs"
     """Directory where model checkpoints, logs, and outputs are saved."""
 
-    save_steps: int = 1000
+    save_steps: int = 10000
     """Frequency (in training steps) at which to save checkpoints."""
 
     save_total_limit: int = 5

@@ -5,6 +5,11 @@
 /examples/LIBERO/libero_object_no_noops_1.0.0_lerobot/
 /examples/LIBERO/libero_spatial_no_noops_1.0.0_lerobot/
 
+/gearbox_assembly_demos_updated
+/ailab
+/gr00t_roco
+/gr00t_roco_128
+
 # UV lock file
 uv.lock
 
