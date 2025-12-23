@@ -1,3 +1,6 @@
+<details>
+<summary><h3>Previous Readme for GR00T</h3></summary>
+
 <div align="center">
 
   <img src="media/header_compress.png" width="800" alt="NVIDIA Isaac GR00T N1.6 Header">
@@ -349,6 +352,11 @@ Please refer to each benchmark link below for more details.
 # Contributing
 
 For more details, see [CONTRIBUTING.md](CONTRIBUTING.md)
+</details>
+
+---
+# Setup for the RoCo Challenge
+
 
 
 ## License 
