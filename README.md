@@ -359,7 +359,7 @@ For more details, see [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Training in H100 Server
 - H100 login reference: [notion](https://www.notion.so/gistailab/NIPA-H100E-1d888e435b22808497abc528c079b537)
 
-- data download (hf download)
+- data download (hf download for official roco data)
 ```
 At ~/Workspaces/yeonguk/Isaac-GR00T
 # 1. Clone the repository and setup the gr00t folder according to original readme.md 
