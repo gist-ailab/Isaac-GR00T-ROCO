@@ -371,7 +371,7 @@ pip install -e .
 hf download rocochallenge2025/rocochallenge2025 --repo-type=dataset --local-dir .
 
 # 3. Conver the dataset into the Lerobot v2.0
-python conver_to_gr00t.py --input_dir ./gearbox_assembly_demos_updated --output_dir ./ailab/ --fps 20 --cameras head left_hand right_hand
+python convert_to_gr00t.py --input_dir ./gearbox_assembly_demos_updated --output_dir ./ailab/ --fps 20 --cameras head left_hand right_hand
 ```
 
 - Fine-tune the GR00T
@@ -380,7 +380,24 @@ python conver_to_gr00t.py --input_dir ./gearbox_assembly_demos_updated --output_
 CUDA_VISIBLE_DEVICES=1 python ./gr00t/experiment/launch_finetune.py --base-model-path nvidia/GR00T-N1.6-3B --dataset-path ./ailab/roco_gearbox/gearbox_assembly_demos_updated/ --output-dir ./gr00t_roco_128 --embodiment-tag NEW_EMBODIMENT --modality-config-path ailab/custom_config.py --global-batch-size 128 --max_steps 50000
 ```
 
-- Inference GR00T
+- Inference GR00T (To get id_container.txt, check [notion](https://www.notion.so/gistailab/NIPA-H100E-1d888e435b22808497abc528c079b537))
+```
+# 1. First copy the checkpoint into the local (RoCo env computer). For example, run the following code in RoCo com:
+scp -i ../id_container.txt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 10929 -rp work@proxy4.aitrain.ktcloud.com:/home/work/Workspaces/yeonguk_yu/Isaac-GR00T/gr00t_roco_128/checkpoint-50000 ./
+
+# 2.1. Run the GR00T server.
+python gr00t/eval/run_gr00t_server.py --embodiment-tag NEW_EMBODIMENT --model-path ./checkpoint-50000/  --device cuda:0 --host 0.0.0.0  --port 5555
+
+# 2.2. Optionally, You can run the Replay server.
+python gr00t/eval/run_gr00t_server.py   --dataset-path ./ailab/roco_gearbox/gearbox_assembly_demos_updated/  --modality-config-path ./ailab/custom_config.py  --embodiment-tag NEW_EMBODIMENT     --execution-horizon 1
+
+# 3. Copy the gr00t_agent.py into the roco env. For example:
+cp gr00t_agent.py ./gearboxAssembly/scripts/gr00t_agent.py
+
+# 4. Run the gr00t_agent.py while Server is on.
+gearboxAssembly$ python scripts/gr00t_agent.py --task=Template-Galaxea-Lab-Agent-Direct-v0 --enable_cameras
+```
+
 ---
 
 
