@@ -356,7 +356,32 @@ For more details, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 # Setup for the RoCo Challenge
+## Training in H100 Server
+- H100 login reference: [notion](https://www.notion.so/gistailab/NIPA-H100E-1d888e435b22808497abc528c079b537)
 
+- data download (hf download)
+```
+At ~/Workspaces/yeonguk/Isaac-GR00T
+# 1. Clone the repository and setup the gr00t folder according to original readme.md 
+git clone https://github.com/gist-ailab/Isaac-GR00T-ROCO.git
+cd Isaac-GR00T-ROCO
+pip install -e .
+
+# 2. Download the dataset
+hf download rocochallenge2025/rocochallenge2025 --repo-type=dataset --local-dir .
+
+# 3. Conver the dataset into the Lerobot v2.0
+python conver_to_gr00t.py --input_dir ./gearbox_assembly_demos_updated --output_dir ./ailab/ --fps 20 --cameras head left_hand right_hand
+```
+
+- Fine-tune the GR00T
+```
+# Lanuch the finetune code
+CUDA_VISIBLE_DEVICES=1 python ./gr00t/experiment/launch_finetune.py --base-model-path nvidia/GR00T-N1.6-3B --dataset-path ./ailab/roco_gearbox/gearbox_assembly_demos_updated/ --output-dir ./gr00t_roco_128 --embodiment-tag NEW_EMBODIMENT --modality-config-path ailab/custom_config.py --global-batch-size 128 --max_steps 50000
+```
+
+- Inference GR00T
+---
 
 
 ## License 
